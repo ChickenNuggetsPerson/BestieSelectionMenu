@@ -20,6 +20,7 @@ bool running = true;
 
 
 int team = 0;
+int startPos = 0;
 int rollers = 0;
 int launch = 0;
 int pickup = 0;
@@ -45,6 +46,7 @@ void writeAllFiles() {
   writeFile("rollers", rollers);
   writeFile("launch", launch);
   writeFile("pickup", pickup);
+  writeFile("startpos", startPos);
 };
 
 
@@ -104,6 +106,18 @@ void screenPressed() {
     }
   }
 
+  // Change Pose
+  checkX = 120;
+  checkY = 20;
+  if (Brain.Screen.xPosition() > checkX && Brain.Screen.xPosition() < checkX + 100 && Brain.Screen.yPosition() > checkY && Brain.Screen.yPosition() < checkY + 100) {
+    if ( startPos == 0 ) {
+      startPos = 1;
+    } else {
+      startPos = 0;
+    }
+  }
+
+
   writeAllFiles();
   
 }
@@ -124,11 +138,14 @@ int main() {
 
   if (Brain.SDcard.exists("team")) {  
     team = readFile("team");
+    startPos = readFile("startpos");
     rollers = readFile("rollers");
     launch = readFile("launch");
     pickup = readFile("pickup");
+
   } else {
     team = 1;
+    startPos = 0;
     rollers = 0;
     launch = 0;
   }
@@ -170,6 +187,20 @@ int main() {
     if (pickup == 1) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::green);}
     if (pickup == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
     Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Pickup");
+
+    
+    drawX = 160;
+    drawY = 20;
+    Brain.Screen.drawRectangle(drawX, drawY, 100, 100);
+    Brain.Screen.drawLine(drawX + 75, drawY + 100, drawX + 75, drawY + 75);
+    Brain.Screen.drawLine(drawX + 75, drawY + 75, drawX + 100, drawY + 75);
+    Brain.Screen.drawLine(drawX, drawY + 25, drawX + 25, drawY + 25);
+    Brain.Screen.drawLine(drawX + 25, drawY + 25, drawX + 25, drawY);
+    if ( startPos == 0 ) { Brain.Screen.drawRectangle(drawX + 15, drawY + 85, 20, 15, vex::color::white); }
+    if ( startPos == 1 ) { Brain.Screen.drawRectangle(drawX + 85, drawY + 15, 15, 20, vex::color::white); }
+    Brain.Screen.printAt(drawX, drawY + 120, true, "Start Pos");
+
+
 
     wait(0.1, seconds);
 
