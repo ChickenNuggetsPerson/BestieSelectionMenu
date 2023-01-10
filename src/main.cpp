@@ -95,17 +95,6 @@ void screenPressed() {
   }
 
 
-  // Pickup Button
-  checkX = 350;
-  checkY = 140;
-  if (Brain.Screen.xPosition() > checkX && Brain.Screen.xPosition() < checkX + 100 && Brain.Screen.yPosition() > checkY && Brain.Screen.yPosition() < checkY + 40) {
-    if ( pickup == 0 ) {
-      pickup = 1;
-    } else {
-      pickup = 0;
-    }
-  }
-
   // Change Pose
   checkX = 120;
   checkY = 20;
@@ -181,12 +170,6 @@ int main() {
     if (launch == 1) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::green);}
     if (launch == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
     Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Launch");
-
-    drawX = 350;
-    drawY = 140;
-    if (pickup == 1) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::green);}
-    if (pickup == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
-    Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Pickup");
 
     
     drawX = 160;
