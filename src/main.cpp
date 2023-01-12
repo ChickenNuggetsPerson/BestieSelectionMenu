@@ -23,7 +23,6 @@ int team = 0;
 int startPos = 0;
 int rollers = 0;
 int launch = 0;
-int pickup = 0;
 
 unsigned int readFile(const char* fileName) {
   unsigned int ival = 0;
@@ -45,7 +44,6 @@ void writeAllFiles() {
   writeFile("team", team);
   writeFile("rollers", rollers);
   writeFile("launch", launch);
-  writeFile("pickup", pickup);
   writeFile("startpos", startPos);
 };
 
@@ -130,7 +128,7 @@ int main() {
     startPos = readFile("startpos");
     rollers = readFile("rollers");
     launch = readFile("launch");
-    pickup = readFile("pickup");
+
 
   } else {
     team = 1;
