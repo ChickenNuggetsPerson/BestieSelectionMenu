@@ -21,6 +21,7 @@ bool running = true;
 
 int team = 0;
 int startPos = 0;
+int skills = 0;
 int rollers = 0;
 int launch = 0;
 
@@ -45,6 +46,7 @@ void writeAllFiles() {
   writeFile("rollers", rollers);
   writeFile("launch", launch);
   writeFile("startpos", startPos);
+  writeFile("skills", skills);
 };
 
 
@@ -72,7 +74,7 @@ void screenPressed() {
 
   // Rollers Button
   checkX = 350;
-  checkY = 40;
+  checkY = 20;
   if (Brain.Screen.xPosition() > checkX && Brain.Screen.xPosition() < checkX + 100 && Brain.Screen.yPosition() > checkY && Brain.Screen.yPosition() < checkY + 40) {
     if ( rollers == 0 ) {
       rollers = 1;
@@ -92,6 +94,16 @@ void screenPressed() {
     }
   }
 
+  // Skills Button 
+  checkX = 350;
+  checkY = 140;
+  if (Brain.Screen.xPosition() > checkX && Brain.Screen.xPosition() < checkX + 100 && Brain.Screen.yPosition() > checkY && Brain.Screen.yPosition() < checkY + 40) {
+    if ( skills == 0 ) {
+      skills = 1;
+    } else {
+      skills = 0;
+    }
+  }
 
   // Change Pose
   checkX = 120;
@@ -128,6 +140,7 @@ int main() {
     startPos = readFile("startpos");
     rollers = readFile("rollers");
     launch = readFile("launch");
+    skills = readFile("skills");
 
 
   } else {
@@ -135,6 +148,7 @@ int main() {
     startPos = 0;
     rollers = 0;
     launch = 0;
+    skills = 0;
   }
 
   int drawX = 0;
@@ -169,7 +183,13 @@ int main() {
     if (launch == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
     Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Launch");
 
-    
+    drawX = 350;
+    drawY = 140;
+    if (skills == 1) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::green);}
+    if (skills == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
+    Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Skills");
+
+
     drawX = 160;
     drawY = 20;
     Brain.Screen.drawRectangle(drawX, drawY, 100, 100);
