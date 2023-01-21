@@ -24,6 +24,7 @@ int startPos = 0;
 int skills = 0;
 int rollers = 0;
 int launch = 0;
+int andrewDriving = 0;
 
 unsigned int readFile(const char* fileName) {
   unsigned int ival = 0;
@@ -47,6 +48,7 @@ void writeAllFiles() {
   writeFile("launch", launch);
   writeFile("startpos", startPos);
   writeFile("skills", skills);
+  writeFile("andrewDriving", andrewDriving);
 };
 
 
@@ -105,6 +107,17 @@ void screenPressed() {
     }
   }
 
+  // Andrew Button
+  checkX = 160;
+  checkY = 150;
+  if (Brain.Screen.xPosition() > checkX && Brain.Screen.xPosition() < checkX + 100 && Brain.Screen.yPosition() > checkY && Brain.Screen.yPosition() < checkY + 40) {
+    if ( andrewDriving == 0 ) {
+      andrewDriving = 1;
+    } else {
+      andrewDriving = 0;
+    }
+  }
+
   // Change Pose
   checkX = 120;
   checkY = 20;
@@ -141,6 +154,7 @@ int main() {
     rollers = readFile("rollers");
     launch = readFile("launch");
     skills = readFile("skills");
+    andrewDriving = readFile("andrewDriving");
 
 
   } else {
@@ -149,6 +163,7 @@ int main() {
     rollers = 0;
     launch = 0;
     skills = 0;
+    andrewDriving = 1;
   }
 
   int drawX = 0;
@@ -188,6 +203,13 @@ int main() {
     if (skills == 1) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::green);}
     if (skills == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
     Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Skills");
+
+    
+    drawX = 160;
+    drawY = 150;
+    if (andrewDriving == 1) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::green);}
+    if (andrewDriving == 0) { Brain.Screen.drawRectangle(drawX, drawY, 100, 40, vex::color::red);}
+    Brain.Screen.printAt(drawX + 20, drawY + 30, true, "Andrew?");
 
 
     drawX = 160;
